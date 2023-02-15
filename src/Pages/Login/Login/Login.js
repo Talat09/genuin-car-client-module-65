@@ -13,7 +13,8 @@ import { ToastContainer, toast } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
 import PageTitle from "../../Shared/PageTitle/PageTitle";
-import axios from "axios";
+
+import useToken from "../../../hooks/useToken";
 
 const Login = () => {
   const emailRef = useRef("");
@@ -33,11 +34,12 @@ const Login = () => {
   }
 
   const [sendPasswordResetEmail, sending] = useSendPasswordResetEmail(auth);
+  const [token] = useToken(user);
   if (loading || sending) {
     return <Loding></Loding>;
   }
-  if (user) {
-    // navigate(from, { replace: true });
+  if (token) {
+    navigate(from, { replace: true });
   }
   //get input value when submited form
   const handleSubmit = async (event) => {
@@ -45,10 +47,6 @@ const Login = () => {
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
     await signInWithEmailAndPassword(email, password);
-    const { data } = await axios.post("http://localhost:5000/login", { email });
-    localStorage.setItem("access token", data.token);
-    navigate(from, { replace: true });
-    console.log(data);
   };
   const navigateRegister = (event) => {
     navigate("/register");

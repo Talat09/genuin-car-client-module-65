@@ -6,7 +6,7 @@ const ManageService = () => {
   const handleDelete = (id) => {
     const proceed = window.confirm("Are you sure want to delete?");
     if (proceed) {
-      const url = `http://localhost:5000/service/${id}`;
+      const url = `https://genuin-car-server.vercel.app/service/${id}`;
       console.log(url);
       fetch(url, {
         method: "DELETE",
@@ -26,11 +26,25 @@ const ManageService = () => {
     <div className="w-50 mx-auto">
       <h1>Manage Your Service:{services.length}</h1>
       {services.map((service) => (
-        <div key={service._id} className="tex-left">
-          <h5>
-            {service.name}{" "}
-            <button onClick={() => handleDelete(service._id)}>X</button>
-          </h5>
+        <div
+          key={service._id}
+          className="tex-left border border-primary d-flex mb-3 align-items-center"
+        >
+          <div>
+            <img src={service.img} alt="" />
+          </div>
+          <div className="ms-2">
+            <h5> {service.name}</h5>
+            <p>Description: {service.description}</p>
+            <p>Price: ${service.price}</p>
+          </div>
+
+          <button
+            className="h-25 btn btn-danger px-5 "
+            onClick={() => handleDelete(service._id)}
+          >
+            Delete Service
+          </button>
         </div>
       ))}
     </div>

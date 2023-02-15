@@ -33,12 +33,14 @@ const Cheakout = () => {
       address: event.target.address.value,
       phone: event.target.phone.value,
     };
-    axios.post("http://localhost:5000/order", order).then((response) => {
-      const { data } = response;
-      if (data.insertedId) {
-        toast("Your order is Booked");
-      }
-    });
+    axios
+      .post("https://genuin-car-server.vercel.app/order", order)
+      .then((response) => {
+        const { data } = response;
+        if (data.insertedId) {
+          toast("Your order is Booked");
+        }
+      });
   };
   return (
     <div className="w-50 mx-auto">

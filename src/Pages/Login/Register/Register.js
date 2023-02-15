@@ -11,6 +11,7 @@ import SocialLogin from "../SocialLogin/SocialLogin";
 import { useState } from "react";
 import Loding from "../../Shared/Loding/Loding";
 import PageTitle from "../../Shared/PageTitle/PageTitle";
+import useToken from "../../../hooks/useToken";
 
 const Register = () => {
   const nameRef = useRef("");
@@ -24,11 +25,13 @@ const Register = () => {
 
   //updating profile
   const [updateProfile, updating, updateError] = useUpdateProfile(auth);
+  //take token from custom useToken hook
+  const [token] = useToken(user);
   if (loading || updating || updateError) {
     return <Loding></Loding>;
   }
-  if (user) {
-    console.log("user", user);
+  if (token) {
+    navigate("/home");
   }
   //get input value when submited form
   const handleSubmit = async (event) => {
@@ -44,7 +47,7 @@ const Register = () => {
     await updateProfile({ displayName: name });
     alert("Updated profile");
     console.log("update profile");
-    navigate("/home");
+    // navigate("/home");
     console.log(name, email, password);
   };
 

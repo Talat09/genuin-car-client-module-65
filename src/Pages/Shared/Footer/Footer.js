@@ -9,8 +9,8 @@ const Footer = () => {
     getYear();
   }, []);
   return (
-    <footer className="text-dark mt-5">
-      <p>
+    <footer className="text-dark mt-5 mx-auto">
+      <p className="text-center">
         <small>&copy; Copyright - {date}</small>
       </p>
     </footer>
